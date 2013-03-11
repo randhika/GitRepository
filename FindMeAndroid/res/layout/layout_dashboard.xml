@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FindMeAppActivity">
+
+    <Button
+        android:id="@+id/bt_boys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="102dp"
+        android:text="@string/find_boys" />
+
+    <Button
+        android:id="@+id/bt_girls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/bt_boys"
+        android:layout_alignBottom="@+id/bt_boys"
+        android:layout_marginLeft="47dp"
+        android:layout_toRightOf="@+id/bt_boys"
+        android:text="@string/find_girls" />
+
+    <Button
+        android:id="@+id/bt_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bt_boys"
+        android:layout_centerVertical="true"
+        android:text="@string/find_all" />
+
+    <Button
+        android:id="@+id/bt_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bt_all"
+        android:layout_alignLeft="@+id/bt_girls"
+        android:text="@string/find_friends" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/com_facebook_usersettingsfragment_connected_shadow_color"
+        >
+        
+        <com.facebook.widget.ProfilePictureView 
+            android:id="@+id/foto_footer"
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="10dp"
+            />
+        <ImageView 
+            android:id="@+id/iv_find_foto_footer"
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="10dp"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:id="@+id/tv_endereco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/foto_footer"
+            android:shadowColor="@color/white_shadow"
+            android:textColor="#001122"
+            android:textSize="@dimen/com_facebook_loginview_text_size" />
+
+    </RelativeLayout>
+</RelativeLayout>

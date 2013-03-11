@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_settings"/>
+	<item
+		android:id="@+id/logout"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:icon="@drawable/ic_action_logout"
+        android:onClick="logOut"
+        android:title="@string/sair"/>
+    <item
+        android:id="@+id/new_foto"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_foto"
+        android:title="@string/new_photo"
+        android:onClick="newPhoto"
+        />
+    <item
+        android:id="@+id/choose_foto"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_gallery"
+        android:title="@string/gallery"/>
+
+</menu>
