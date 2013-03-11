@@ -1,0 +1,41 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <item
+        android:id="@+id/edit_perfil"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_edit_profile"
+        android:title="@string/edit_profile"
+        >
+         <menu>
+		    <item
+		        android:id="@+id/new_foto"
+		        android:orderInCategory="100"
+		        android:showAsAction="always"
+		        android:icon="@drawable/ic_action_foto"
+		        android:onClick="newPhoto"
+		        android:title="@string/new_photo"/>
+		    <item
+		        android:id="@+id/choose_foto"
+		        android:orderInCategory="200"
+		        android:showAsAction="always"
+		        android:icon="@drawable/ic_action_gallery"
+		        android:onClick="selecionaGaleria"
+		        android:title="@string/gallery"/>
+         </menu>
+     </item>
+	<item
+		android:id="@+id/refresh"
+        android:orderInCategory="200"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_refresh"
+        android:title="@string/sinc"/>
+	<item
+		android:id="@+id/log_out"
+        android:orderInCategory="300"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_logout"
+        android:onClick="logOut"
+        android:title="@string/sair"/>
+
+</menu>
