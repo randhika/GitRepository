@@ -74,7 +74,7 @@ public class TransacaoTask extends AsyncTask<Void, Void, Boolean> {
 		try {
 			if (progresso != null)
 				progresso.dismiss();
-			Log.d(Contants.LOG_TAG, "FECHANDO PROGRESS");
+//			Log.d(Contants.LOG_TAG, "FECHANDO PROGRESS");
 		} catch (Exception e) {
 			this.exception = e;
 			Log.e(Contants.LOG_TAG, e.getMessage(), e);

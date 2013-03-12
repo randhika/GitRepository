@@ -5,16 +5,6 @@
     tools:context=".FindMeAppActivity">
 
     <Button
-        android:id="@+id/bt_boys"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="102dp"
-        android:text="@string/find_boys" />
-
-    <Button
         android:id="@+id/bt_girls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,8 +61,19 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/foto_footer"
             android:shadowColor="@color/white_shadow"
-            android:textColor="#001122"
+            android:textColor="#FFF"
             android:textSize="@dimen/com_facebook_loginview_text_size" />
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_boys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="59dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/find_boys" />
+
 </RelativeLayout>

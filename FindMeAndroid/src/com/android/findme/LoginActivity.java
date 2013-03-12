@@ -59,6 +59,12 @@ public class LoginActivity extends FindMeAppActivity implements Transacao{
 					Log.i(LOG_TAG, "LOGADO!");
 					startTransacao(new TransacaoTask(LoginActivity.this, LoginActivity.this, R.string.com_facebook_loading));
 				}
+			}else{
+				confirm_btn.setVisibility(Button.INVISIBLE);
+				profileView.setProfileId(null);
+				profileView.invalidate();
+				tv_nome.setText("");
+				tv_nome.invalidate();
 			}
 			if(exception != null){
 				Toast.makeText(getApplicationContext(), "Não foi Possível logar no Facebook >> " + exception.getMessage(), Toast.LENGTH_LONG).show();
@@ -85,10 +91,10 @@ public class LoginActivity extends FindMeAppActivity implements Transacao{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
 		super.onCreate(savedInstanceState);
 		uiHelper = new UiLifecycleHelper(this,statusCallBackListener);
 		uiHelper.onCreate(savedInstanceState);
+		setTitleColor(getResources().getColor(R.color.white));
 		verificaConfirm();
 		setContentView(R.layout.layout_user_profile);
 		myprefs = getSharedPreferences("user", MODE_PRIVATE);
@@ -138,18 +144,18 @@ public class LoginActivity extends FindMeAppActivity implements Transacao{
 	public void atualizaView() {
 		Log.i(LOG_TAG, "Atualizando a view!");
 		if(user != null){
-			tv_nome.setText("Olá " + user.getName() + ", comece a procurar gente interessante e perto de você!");
+			tv_nome.setText("Confirma seu Login como " + user.getName()+ " ?");
 			tv_nome.invalidate();
 			tv_nome.setShadowLayer(1.5F, 1.5F, 1.5F, R.color.com_facebook_usersettingsfragment_connected_text_color);
-			profileView.setCropped(true);
+//			profileView.setCropped(true);
 			profileView.setProfileId(user.getId());
 			Editor editor = myprefs.edit();
 			editor.putString("username", user.getUsername());
 			editor.putString("name", user.getName());
 			editor.putString("id", user.getId());
 			editor.commit();
-			fbButton.setVisibility(LoginButton.INVISIBLE);
-			fbButton.invalidate();
+//			fbButton.setVisibility(LoginButton.INVISIBLE);
+//			fbButton.invalidate();
 			confirm_btn.setVisibility(Button.VISIBLE);
 			confirm_btn.invalidate();
 		}

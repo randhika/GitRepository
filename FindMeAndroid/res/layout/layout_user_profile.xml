@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".FindMeAppActivity" >
 
-    <Button
-        android:id="@+id/bt_confirm_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/profile_confirma"
-        android:visibility="invisible" />
-
     <com.facebook.widget.ProfilePictureView
         android:id="@+id/iv_profile_photo"
         android:layout_width="200dp"
@@ -35,17 +26,26 @@
         android:id="@+id/tv_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/fb_button"
+        android:layout_below="@+id/iv_profile_photo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
-        android:ems="10"
+        android:ems="12"
         android:textIsSelectable="true" />
 
     <com.facebook.widget.LoginButton
         android:id="@+id/fb_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignLeft="@+id/iv_profile_photo"
+        android:layout_below="@+id/bt_confirm_profile" />
+
+    <Button
+        android:id="@+id/bt_confirm_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fb_button"
+        android:layout_alignRight="@+id/fb_button"
+        android:layout_below="@+id/tv_profile_name"
+        android:text="@string/profile_confirma"
+        android:visibility="invisible" />
 
 </RelativeLayout>

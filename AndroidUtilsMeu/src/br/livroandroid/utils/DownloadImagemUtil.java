@@ -257,7 +257,7 @@ public class DownloadImagemUtil {
 	 * @return
 	 */
 	public static boolean isAndroid3() {
-		int apiLevel = Integer.parseInt(Build.VERSION.SDK);
+		int apiLevel = Build.VERSION.SDK_INT;
 		if (apiLevel >= 11) {
 			return true;
 		}

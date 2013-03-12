@@ -5,13 +5,12 @@ import java.io.IOException;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
-import android.location.GpsSatellite;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -72,6 +71,9 @@ public class Dashboard extends FindMeAppActivity{
 		tv_endereco = (TextView) findViewById(R.id.tv_endereco);
 		arquivo_foto = myPrefs.getString("foto", null);
 		setTitle(username);
+		
+		setTitleColor(Color.WHITE);
+		
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		Log.i(LOG_TAG, "foto do prefs " + arquivo_foto);
 		if(arquivo_foto == null){
@@ -80,8 +82,8 @@ public class Dashboard extends FindMeAppActivity{
 		}else{
 			trocaImagens(profileView, fotoRodape, arquivo_foto);
 		}
-		checkGPSStatus(locationManager);
 		getMyLocation();
+		updateLocation();
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 100, location_listener);
 	}
 
@@ -105,16 +107,24 @@ public class Dashboard extends FindMeAppActivity{
 	public  void checkGPSStatus(LocationManager locationManager){
 		LocationProvider provider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
 		if(!locationManager.isProviderEnabled(provider.getName())){
-			AlertDialog alert = new AlertDialog.Builder(getApplicationContext()).setTitle(provider.getName()+ "GPS Desabilitado")
+			final AlertDialog alert = new AlertDialog.Builder(this).setTitle(provider.getName()+ " Desabilitado")
 					.setMessage("Cara, habilite seu " + provider.getName() + " senão não funciona!").create();
+			alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					alert.dismiss();
+				}
+			});
 			alert.show();
 //			Toast.makeText(getApplicationContext(), "Cara, habilite seu " + provider.getName() + " senão não funciona!",Toast.LENGTH_LONG).show();
 		}
 	}
 	
 	public void getMyLocation(){
-		Log.i(LOG_TAG, "GetLocation");
-		mylocation = locationManager.getLastKnownLocation(provider.getName());
+		checkGPSStatus(locationManager);
+		Log.i(LOG_TAG, "Getting Location");
+		mylocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		Log.i(LOG_TAG, "MyLocation " + mylocation);
 	}
 	
@@ -136,7 +146,14 @@ public class Dashboard extends FindMeAppActivity{
 	}
 	
 	public void sincronizar(MenuItem menu){
-		getMyLocation();
-		updateLocation();
+		Toast.makeText(getApplicationContext(), "Sincronizando Localização...",Toast.LENGTH_SHORT).show();
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				profileView.setProfileId(id);
+				getMyLocation();
+				updateLocation();
+			}
+		});
 	}
 }

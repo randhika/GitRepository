@@ -24,7 +24,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 import br.livroandroid.utils.MediaFileUtils;
 
 import com.facebook.Session;
@@ -82,7 +81,7 @@ public class FindMeAppActivity extends Activity {
 	}
 	
 	public void selecionaGaleria(MenuItem item){
-		Toast.makeText(getApplicationContext(), "abre a galeria", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getApplicationContext(), "abre a galeria", Toast.LENGTH_SHORT).show();
 //		Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
 //		startActivityForResult(intent,FOTO_GALERIA);
 		MediaFileUtils.gallerySearch(this, "image/*");
@@ -97,7 +96,7 @@ public class FindMeAppActivity extends Activity {
 		int indexColuna = cursor.getColumnIndex(colunaFilePath[0]);
 		String arquivo = cursor.getString(indexColuna);
 		Log.i(LOG_TAG, "Arquivo selecionado >>>" + arquivo);
-		myprefs.edit().putString("foto", arquivo);
+		myprefs.edit().putString("foto", arquivo).commit();
 		return arquivo;
 	}
 	
@@ -122,9 +121,9 @@ public class FindMeAppActivity extends Activity {
 	            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
 	            }
 	    } catch (NameNotFoundException e) {
-
+	    	e.printStackTrace();
 	    } catch (NoSuchAlgorithmException e) {
-
+	    	e.printStackTrace();
 	    }
 	}
 }

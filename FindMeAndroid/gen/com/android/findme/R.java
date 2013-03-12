@@ -165,6 +165,7 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_connected_shadow_color=0x7f060002;
         public static final int com_facebook_usersettingsfragment_connected_text_color=0x7f060001;
         public static final int com_facebook_usersettingsfragment_not_connected_text_color=0x7f060003;
+        public static final int white=0x7f060007;
         public static final int white_shadow=0x7f060006;
     }
     public static final class dimen {
@@ -220,13 +221,20 @@ containing a value of this type.
         public static final int ic_action_refresh=0x7f020023;
         public static final int ic_foto_perfil=0x7f020024;
         public static final int ic_launcher=0x7f020025;
+        public static final int ic_message=0x7f020026;
+        public static final int ic_power=0x7f020027;
+        public static final int new_camera=0x7f020028;
+        public static final int new_gallery=0x7f020029;
+        public static final int new_search=0x7f02002a;
+        public static final int sync=0x7f02002b;
+        public static final int user=0x7f02002c;
     }
     public static final class id {
         public static final int bt_all=0x7f04001a;
-        public static final int bt_boys=0x7f040018;
-        public static final int bt_confirm_profile=0x7f04001f;
+        public static final int bt_boys=0x7f040019;
+        public static final int bt_confirm_profile=0x7f040023;
         public static final int bt_friends=0x7f04001b;
-        public static final int bt_girls=0x7f040019;
+        public static final int bt_girls=0x7f040018;
         public static final int choose_foto=0x7f040026;
         public static final int com_facebook_login_activity_progress_bar=0x7f040005;
         public static final int com_facebook_picker_activity_circle=0x7f040004;
@@ -248,11 +256,11 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f040015;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f040016;
         public static final int edit_perfil=0x7f040024;
-        public static final int fb_button=0x7f040023;
+        public static final int fb_button=0x7f040022;
         public static final int foto_footer=0x7f04001c;
         public static final int iv_find_foto_footer=0x7f04001d;
-        public static final int iv_findme_photo=0x7f040021;
-        public static final int iv_profile_photo=0x7f040020;
+        public static final int iv_findme_photo=0x7f040020;
+        public static final int iv_profile_photo=0x7f04001f;
         public static final int large=0x7f040002;
         public static final int log_out=0x7f040028;
         public static final int logout=0x7f04002a;
@@ -264,7 +272,7 @@ containing a value of this type.
         public static final int search_box=0x7f040013;
         public static final int small=0x7f040000;
         public static final int tv_endereco=0x7f04001e;
-        public static final int tv_profile_name=0x7f040022;
+        public static final int tv_profile_name=0x7f040021;
     }
     public static final class layout {
         public static final int com_facebook_friendpickerfragment=0x7f030000;
@@ -281,9 +289,9 @@ containing a value of this type.
         public static final int com_facebook_placepickerfragment_list_row=0x7f03000b;
         public static final int com_facebook_usersettingsfragment=0x7f03000c;
         public static final int layout_dashboard=0x7f03000d;
-        public static final int layout_login=0x7f03000e;
-        public static final int layout_user_profile=0x7f03000f;
-        public static final int main=0x7f030010;
+        public static final int layout_user_profile=0x7f03000e;
+        public static final int main=0x7f03000f;
+        public static final int users_layout=0x7f030010;
     }
     public static final class menu {
         public static final int dashboard_menu=0x7f090000;
@@ -342,7 +350,6 @@ containing a value of this type.
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
-
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -359,13 +366,16 @@ containing a value of this type.
          */
         public static final int AppBaseTheme=0x7f080002;
         /**  Application theme. 
+ Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080003;
-        public static final int ButtonBar=0x7f080005;
-        public static final int ButtonBarButton=0x7f080006;
+        public static final int ButtonBar=0x7f080004;
+        public static final int ButtonBarButton=0x7f080005;
         public static final int FullscreenActionBarStyle=0x7f080007;
-        public static final int FullscreenTheme=0x7f080004;
+        public static final int FullscreenTheme=0x7f080006;
+        public static final int MyActionBar=0x7f080009;
+        public static final int MyTheme=0x7f080008;
         public static final int com_facebook_loginview_default_style=0x7f080000;
         public static final int com_facebook_loginview_silver_style=0x7f080001;
     }

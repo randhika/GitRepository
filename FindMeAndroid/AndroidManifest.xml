@@ -21,9 +21,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/new_search"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/MyTheme" >
         <activity
             android:name="com.android.findme.FindMeAppActivity"
             android:label="@string/app_name" >
@@ -35,7 +35,7 @@
 
         <activity android:name="com.facebook.LoginActivity" />
         <activity android:name="com.android.findme.Dashboard" />
-        <activity android:name="com.android.findme.LoginActivity">
+        <activity android:name="com.android.findme.LoginActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

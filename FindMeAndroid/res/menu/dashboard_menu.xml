@@ -1,10 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
      <item
         android:id="@+id/edit_perfil"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_edit_profile"
+        android:icon="@drawable/user"
         android:title="@string/edit_profile"
         >
          <menu>
@@ -12,14 +11,14 @@
 		        android:id="@+id/new_foto"
 		        android:orderInCategory="100"
 		        android:showAsAction="always"
-		        android:icon="@drawable/ic_action_foto"
+		        android:icon="@drawable/new_camera"
 		        android:onClick="newPhoto"
 		        android:title="@string/new_photo"/>
 		    <item
 		        android:id="@+id/choose_foto"
 		        android:orderInCategory="200"
 		        android:showAsAction="always"
-		        android:icon="@drawable/ic_action_gallery"
+		        android:icon="@drawable/new_gallery"
 		        android:onClick="selecionaGaleria"
 		        android:title="@string/gallery"/>
          </menu>
@@ -28,13 +27,14 @@
 		android:id="@+id/refresh"
         android:orderInCategory="200"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_refresh"
+        android:icon="@drawable/sync"
+        android:onClick="sincronizar"
         android:title="@string/sinc"/>
 	<item
 		android:id="@+id/log_out"
         android:orderInCategory="300"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_logout"
+        android:icon="@drawable/ic_power"
         android:onClick="logOut"
         android:title="@string/sair"/>
 

@@ -16,7 +16,7 @@
         android:id="@+id/new_foto"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_foto"
+        android:icon="@drawable/new_camera"
         android:title="@string/new_photo"
         android:onClick="newPhoto"
         />
@@ -24,7 +24,8 @@
         android:id="@+id/choose_foto"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_gallery"
+        android:icon="@drawable/new_gallery"
+        android:onClick="selecionaGaleria"
         android:title="@string/gallery"/>
 
 </menu>
