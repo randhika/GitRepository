@@ -3,20 +3,26 @@ package com.android.findme;
 
 import java.io.IOException;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.GpsSatellite;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.livroandroid.utils.MediaFileUtils;
 
 import com.facebook.widget.ProfilePictureView;
@@ -31,6 +37,27 @@ public class Dashboard extends FindMeAppActivity{
 	private String arquivo_foto;
 	private Location mylocation;
 	private LocationManager locationManager;
+	private LocationListener location_listener = new LocationListener() {
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			Log.i(LOG_TAG, "STATUS CHANGED - " + provider + " - status =" + status);
+		}
+		
+		@Override
+		public void onProviderEnabled(String provider) {
+			Log.i(LOG_TAG, provider + " ENABLED");
+		}
+		
+		@Override
+		public void onProviderDisabled(String provider) {
+			Log.w(LOG_TAG, provider + " DISABLED");
+		}
+		
+		@Override
+		public void onLocationChanged(Location location) {
+			updateLocation();
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +80,9 @@ public class Dashboard extends FindMeAppActivity{
 		}else{
 			trocaImagens(profileView, fotoRodape, arquivo_foto);
 		}
-		getLocation();
-		
+		checkGPSStatus(locationManager);
+		getMyLocation();
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 100, location_listener);
 	}
 
 	@Override
@@ -74,17 +102,24 @@ public class Dashboard extends FindMeAppActivity{
 		}
 	}
 	
+	public  void checkGPSStatus(LocationManager locationManager){
+		LocationProvider provider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
+		if(!locationManager.isProviderEnabled(provider.getName())){
+			AlertDialog alert = new AlertDialog.Builder(getApplicationContext()).setTitle(provider.getName()+ "GPS Desabilitado")
+					.setMessage("Cara, habilite seu " + provider.getName() + " senão não funciona!").create();
+			alert.show();
+//			Toast.makeText(getApplicationContext(), "Cara, habilite seu " + provider.getName() + " senão não funciona!",Toast.LENGTH_LONG).show();
+		}
+	}
 	
-	public void getLocation(){
+	public void getMyLocation(){
 		Log.i(LOG_TAG, "GetLocation");
-		Criteria criteria = new Criteria();
-		criteria.setCostAllowed(true);
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		criteria.setAltitudeRequired(false);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
-		String provider = locationManager.getBestProvider(criteria, false);
-		mylocation = locationManager.getLastKnownLocation(provider);
+		mylocation = locationManager.getLastKnownLocation(provider.getName());
 		Log.i(LOG_TAG, "MyLocation " + mylocation);
+	}
+	
+	public void updateLocation(){
+		Log.i(LOG_TAG, "Atualizando Localizacao");
 		if(mylocation != null){
 			Geocoder geocoder = new Geocoder(this);
 			try {
@@ -95,28 +130,13 @@ public class Dashboard extends FindMeAppActivity{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else{
+			Toast.makeText(getApplicationContext(), "Não consegui pegar sua localização, verifique se o seu GPS está habilitado!",Toast.LENGTH_LONG).show();
 		}
 	}
 	
-	public void updateLocation(){
-		Log.i(LOG_TAG, "Atualizando Localizacao");
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 100, new LocationListener() {
-			@Override
-			public void onStatusChanged(String provider, int status, Bundle extras) {
-			}
-			
-			@Override
-			public void onProviderEnabled(String provider) {
-			}
-			
-			@Override
-			public void onProviderDisabled(String provider) {
-			}
-			
-			@Override
-			public void onLocationChanged(Location location) {
-				getLocation();
-			}
-		});
+	public void sincronizar(MenuItem menu){
+		getMyLocation();
+		updateLocation();
 	}
 }
