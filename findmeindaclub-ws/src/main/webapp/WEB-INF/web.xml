@@ -3,10 +3,10 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 <web-app>
   <display-name>FindMeWs</display-name>
-  <context-param>
-		<param-name>resteasy.scan</param-name>
-		<param-value>true</param-value>
-	</context-param>
+<!-- 	 <context-param> -->
+<!-- 		<param-name>resteasy.scan</param-name> -->
+<!-- 		<param-value>true</param-value> -->
+<!-- 	</context-param> -->
   <context-param>
 	<param-name>resteasy.resources</param-name>
 	<param-value>com.findme.services.FindMeServices</param-value>      

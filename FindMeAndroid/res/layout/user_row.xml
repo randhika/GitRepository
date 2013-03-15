@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText,ContentDescription" >
+
+	<com.facebook.widget.ProfilePictureView
+	    android:id="@+id/user_row_profile_picture"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+	    />
+    <ImageView
+        android:id="@+id/iv_user_photo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/com_facebook_profile_picture_blank_square"
+        android:visibility="invisible"
+	    android:layout_alignBaseline="@id/user_row_profile_picture"
+        />
+    
+    
+	<ProgressBar 
+	    android:id="@+id/progress_user_foto"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@id/iv_user_photo"
+	    android:visibility="invisible"
+	    />
+	
+    <ImageView
+        android:id="@+id/iv_user_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_user_photo"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="14dp"
+        android:layout_marginRight="15dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_message" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        style="@style/sombreamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_user_gender"
+        android:layout_toRightOf="@+id/iv_user_photo"
+        android:textIsSelectable="false"/>
+
+</RelativeLayout>

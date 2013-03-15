@@ -30,7 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 
-class ImageDownloader {
+public class ImageDownloader {
     private static final int DOWNLOAD_QUEUE_MAX_CONCURRENT = WorkQueue.DEFAULT_MAX_CONCURRENT;
     private static final int CACHE_READ_QUEUE_MAX_CONCURRENT = 2;
     private static final Handler handler = new Handler();

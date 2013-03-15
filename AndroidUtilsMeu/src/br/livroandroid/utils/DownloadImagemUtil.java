@@ -127,7 +127,7 @@ public class DownloadImagemUtil {
 		return null;
 	}
 	// Faz o download da imagem e atualiza o cache
-	private Bitmap downloadBitmap(String url) {
+	public Bitmap downloadBitmap(String url) {
 		if (url == null) {
 			return null;
 		}

@@ -23,7 +23,7 @@ import com.facebook.internal.Validate;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-class ImageRequest {
+public class ImageRequest {
 
     interface Callback {
         /**

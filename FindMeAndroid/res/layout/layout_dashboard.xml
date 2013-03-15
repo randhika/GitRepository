@@ -4,39 +4,13 @@
     android:layout_height="match_parent"
     tools:context=".FindMeAppActivity">
 
-    <Button
-        android:id="@+id/bt_girls"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bt_boys"
-        android:layout_alignBottom="@+id/bt_boys"
-        android:layout_marginLeft="47dp"
-        android:layout_toRightOf="@+id/bt_boys"
-        android:text="@string/find_girls" />
-
-    <Button
-        android:id="@+id/bt_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bt_boys"
-        android:layout_centerVertical="true"
-        android:text="@string/find_all" />
-
-    <Button
-        android:id="@+id/bt_friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bt_all"
-        android:layout_alignLeft="@+id/bt_girls"
-        android:text="@string/find_friends" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@color/com_facebook_usersettingsfragment_connected_shadow_color"
-        >
+        android:id="@+id/relativeLayout1">
         
         <com.facebook.widget.ProfilePictureView 
             android:id="@+id/foto_footer"
@@ -60,20 +34,53 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/foto_footer"
-            android:shadowColor="@color/white_shadow"
+            style="@style/sombreamento"
             android:textColor="#FFF"
             android:textSize="@dimen/com_facebook_loginview_text_size" />
 
     </RelativeLayout>
 
     <Button
+        android:id="@+id/bt_all"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/bt_friends"
+        android:layout_alignBottom="@+id/bt_friends"
+        android:layout_alignLeft="@+id/bt_boys"
+        android:background="@drawable/browser_hdpi"
+        android:text="@string/find_all" />
+
+    <Button
         android:id="@+id/bt_boys"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="59dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginLeft="61dp"
+        android:layout_marginTop="85dp"
+        android:background="@drawable/score_hdpi"
+        android:onClick="findBoys"
         android:text="@string/find_boys" />
+
+    <Button
+        android:id="@+id/bt_girls"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/bt_boys"
+        android:layout_alignBottom="@+id/bt_boys"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="45dp"
+        android:background="@drawable/lovedsgn_hdpi"
+        android:text="@string/find_girls" />
+
+    <Button
+        android:id="@+id/bt_friends"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/relativeLayout1"
+        android:layout_alignRight="@+id/bt_girls"
+        android:layout_marginBottom="107dp"
+        android:background="@drawable/facebook_hdpi"
+        android:text="@string/find_friends" />
 
 </RelativeLayout>

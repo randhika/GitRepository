@@ -5,6 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -24,6 +27,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import br.livroandroid.transacao.Transacao;
+import br.livroandroid.transacao.TransacaoTask;
 import br.livroandroid.utils.MediaFileUtils;
 
 import com.facebook.Session;
@@ -34,6 +39,12 @@ public class FindMeAppActivity extends Activity {
 	public static final int TIRA_FOTO = 1002;
 	public static final int FOTO_GALERIA = 1003;
 	public static final String APP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)  + "/FindMe";
+	private TransacaoTask task;
+	
+	public void startTransacao(Context context, Transacao transacao){
+		task = new TransacaoTask(context, transacao, R.string.logando);
+		task.execute();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +76,39 @@ public class FindMeAppActivity extends Activity {
 
 	public void logOut(MenuItem menu){
 		Log.i(LOG_TAG, "Logging Out!");
-		try{
-			Session.getActiveSession().closeAndClearTokenInformation();
-			if(Session.getActiveSession() == null || Session.getActiveSession().isClosed()){
-				Log.i(LOG_TAG, "Session Closed!");
-				myprefs.edit().clear().commit();
-				if(myprefs.getBoolean("confirmado", false) == false){
-					startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-					finish();
+		final AlertDialog logout = new AlertDialog.Builder(this).setTitle("Log Out").
+				setMessage(myprefs.getString("name", null) + ", deseja realmente sair?").create();
+		logout.setIcon(R.drawable.alert_48);
+		logout.setButton(AlertDialog.BUTTON_POSITIVE, "Sim", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				try{
+					Session.getActiveSession().closeAndClearTokenInformation();
+					if(Session.getActiveSession() == null || Session.getActiveSession().isClosed()){
+						Log.i(LOG_TAG, "Session Closed!");
+						myprefs.edit().clear().commit();
+						if(myprefs.getString("id", null) == null){
+							startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+							finish();
+						}
+					}
+				}catch(Exception e){
+					Log.e(LOG_TAG,"Erro Logout", e);
 				}
+				
 			}
-		}catch(Exception e){
-			Log.e(LOG_TAG,"Erro Logout", e);
-		}
+		});
+		logout.setButton(AlertDialog.BUTTON_NEGATIVE, "Não", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				logout.cancel();
+			}
+		});
+		logout.show();
 	}
+	
 	
 	public void selecionaGaleria(MenuItem item){
 //		Toast.makeText(getApplicationContext(), "abre a galeria", Toast.LENGTH_SHORT).show();

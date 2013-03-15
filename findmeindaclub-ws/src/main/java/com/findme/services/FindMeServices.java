@@ -22,10 +22,13 @@ public class FindMeServices{
 	@Produces("application/json")
 	public List<Usuario> getBoys(@PathParam("longitude") String latitude,@PathParam("longitude") String longitude,@PathParam("endereco") String endereco){
 		List<Usuario> usuarios = new ArrayList<>();
-		Usuario u = new Usuario("facbookidexemple", latitude, longitude, endereco, Usuario.SEXO.MALE, "caminho da foto.jpg");
+		Usuario u = new Usuario("1", "Dani",latitude, longitude, endereco, Usuario.SEXO.MALE, "caminho da foto.jpg");
+		Usuario u2 = new Usuario("2", "Danilo",latitude, longitude, endereco, Usuario.SEXO.MALE, "caminho da foto.jpg");
 		usuarios.add(u);
+		usuarios.add(u2);
 		return usuarios;
 	}
+	
 	@GET
 	@Path("/test")
 	public Response test(){

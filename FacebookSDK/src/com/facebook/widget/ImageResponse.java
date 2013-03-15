@@ -18,7 +18,7 @@ package com.facebook.widget;
 
 import android.graphics.Bitmap;
 
-class ImageResponse {
+public class ImageResponse {
 
     private ImageRequest request;
     private Exception error;

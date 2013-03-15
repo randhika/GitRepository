@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.GpsStatus;
+import android.location.GpsStatus.Listener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,6 +21,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +43,7 @@ public class Dashboard extends FindMeAppActivity{
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			Log.i(LOG_TAG, "STATUS CHANGED - " + provider + " - status =" + status);
+			//o Status ok deve == 2
 		}
 		
 		@Override
@@ -62,6 +66,27 @@ public class Dashboard extends FindMeAppActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		Listener gps_listener = new GpsStatus.Listener() {
+			
+			@Override
+			public void onGpsStatusChanged(int event) {
+				if(event == GpsStatus.GPS_EVENT_STARTED){
+					System.out.println("GPS_EVENT_STARTED");
+				}
+				if(event == GpsStatus.GPS_EVENT_STOPPED){
+					System.out.println("GPS_EVENT_STOPPED");
+				}
+				if(event == GpsStatus.GPS_EVENT_FIRST_FIX){
+					System.out.println("GPS_EVENT_FIRST_FIX");
+				}
+				if(event == GpsStatus.GPS_EVENT_SATELLITE_STATUS){
+					System.out.println("GPS_EVENT_SATELLITE_STATUS");
+				}
+				
+			}
+		};
+		
+		
 		setContentView(R.layout.layout_dashboard);
 		myPrefs = getSharedPreferences("user", MODE_PRIVATE);
 		username = myPrefs.getString("username", null);
@@ -72,9 +97,12 @@ public class Dashboard extends FindMeAppActivity{
 		arquivo_foto = myPrefs.getString("foto", null);
 		setTitle(username);
 		
+		System.out.println(id);
+		
 		setTitleColor(Color.WHITE);
 		
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager.addGpsStatusListener(gps_listener);
 		Log.i(LOG_TAG, "foto do prefs " + arquivo_foto);
 		if(arquivo_foto == null){
 			profileView.setCropped(true);
@@ -84,7 +112,7 @@ public class Dashboard extends FindMeAppActivity{
 		}
 		getMyLocation();
 		updateLocation();
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 100, location_listener);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30, 500, location_listener);
 	}
 
 	@Override
@@ -103,7 +131,7 @@ public class Dashboard extends FindMeAppActivity{
 			trocaImagens(profileView, fotoRodape, getPathFileSelected(data));
 		}
 	}
-	
+		
 	public  void checkGPSStatus(LocationManager locationManager){
 		LocationProvider provider = locationManager.getProvider(LocationManager.GPS_PROVIDER);
 		if(!locationManager.isProviderEnabled(provider.getName())){
@@ -117,7 +145,6 @@ public class Dashboard extends FindMeAppActivity{
 				}
 			});
 			alert.show();
-//			Toast.makeText(getApplicationContext(), "Cara, habilite seu " + provider.getName() + " senão não funciona!",Toast.LENGTH_LONG).show();
 		}
 	}
 	
@@ -141,8 +168,12 @@ public class Dashboard extends FindMeAppActivity{
 				e.printStackTrace();
 			}
 		}else{
-			Toast.makeText(getApplicationContext(), "Não consegui pegar sua localização, verifique se o seu GPS está habilitado!",Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "Não consegui pegar sua localização!",Toast.LENGTH_LONG).show();
 		}
+	}
+	
+	public void findBoys(View v){
+		startActivity(new Intent(this, ListUsersActivity.class));
 	}
 	
 	public void sincronizar(MenuItem menu){
