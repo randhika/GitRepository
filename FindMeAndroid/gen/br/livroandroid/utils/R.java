@@ -12,9 +12,9 @@ public final class R {
 		public static final int app_name = 0x7f05001a;
 	}
 	public static final class layout {
-		public static final int main = 0x7f03000f;
+		public static final int main = 0x7f030010;
 	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f020029;
+		public static final int ic_launcher = 0x7f02002a;
 	}
 }

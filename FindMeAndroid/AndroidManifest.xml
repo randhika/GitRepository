@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BATTERY_STATS" />
 
     <application
@@ -50,6 +49,10 @@
         <activity
             android:name="com.android.findme.ProfileActivity"
             android:label="@string/title_activity_profile" >
+        </activity>
+        <activity
+            android:name="com.android.findme.ChattingRoomActivity"
+            android:label="@string/title_activity_chatting_room" >
         </activity>
     </application>
 

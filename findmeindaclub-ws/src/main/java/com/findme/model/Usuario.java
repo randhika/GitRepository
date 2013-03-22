@@ -1,13 +1,9 @@
 package com.findme.model;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import br.livroandroid.utils.ModelConverter;
 
 
-public class Usuario extends ModelConverter implements Serializable{
+public class Usuario implements Serializable{
 
 	/**
 	 * 
@@ -90,20 +86,6 @@ public class Usuario extends ModelConverter implements Serializable{
 
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-
-
-	@Override
-	public void invoqueSetters(Object valorJson, Method setters, Object model)
-			throws IllegalArgumentException, IllegalAccessException,
-			InvocationTargetException {
-		if(valorJson != null && !valorJson.toString().equalsIgnoreCase("null")){
-			if(setters.getParameterTypes()[0].getName().equals(Enum.class.getName())){
-				setters.invoke(model, Enum.valueOf(Usuario.SEXO.class, valorJson.toString()));
-			}else{
-				setters.invoke(model, valorJson);
-			}
-		}
 	}
 
 

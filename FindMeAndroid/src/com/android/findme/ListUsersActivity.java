@@ -1,11 +1,13 @@
 package com.android.findme;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import br.livroandroid.transacao.Transacao;
+import br.livroandroid.transacao.TransacaoTask;
 
 import com.findme.adapters.UserAdapter;
 import com.findme.model.ListaUsuarios;
@@ -16,29 +18,32 @@ public class ListUsersActivity extends FindMeAppActivity implements Transacao{
 
 	private ListaUsuarios users;
 	private ListView lv_users;
+	private String users_gender;
+	private Usuario app_user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.users_layout);
-		
-		
-		List<Usuario> list = new ArrayList<Usuario>();
-		Usuario u = new Usuario("100005428717630", "danilo","", "", "", Usuario.SEXO.MALE, "");
-		list.add(u);
-		u = new Usuario("100005428717630", "Daniele", "","", "", Usuario.SEXO.FEMALE, "");
-		list.add(u);
-		u = new Usuario("100005428717630", "Ezias", "","", "", Usuario.SEXO.MALE, "");
-		list.add(u);
-		users = new ListaUsuarios(list);
-		
 		lv_users = (ListView) findViewById(R.id.lv_users);
-//		lv_users.setAdapter(new UserAdapter(this, list));
+		Bundle bundle = getIntent().getExtras();
+		app_user = (Usuario) bundle.getSerializable("app_user");
+		users_gender = bundle.getString("users_gender");
 		
-		startTransacao(this, this);
+		lv_users.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View view, int position,
+					long id) {
+				Usuario user = (Usuario) adapter.getItemAtPosition(position);
+				Intent intent = new Intent(getApplicationContext(), ChattingRoomActivity.class);
+				intent.putExtra("user_selected", user);
+				intent.putExtra("app_user", app_user);
+				startActivity(intent);
+			}
+		});
 		
-//		TransacaoTask task = new TransacaoTask(this, this, R.string.sair);
-//		task.execute();
+		startTransacao(new TransacaoTask(this, this, R.string.logando));
 	}
 
 	@Override
@@ -55,6 +60,10 @@ public class ListUsersActivity extends FindMeAppActivity implements Transacao{
 
 	@Override
 	public void executar() throws Exception {
-		UserServices.findBoys();
+		users = new ListaUsuarios(UserServices.findUsers(users_gender, app_user));
+		if(connection == null){
+			connectXMPP();
+		}
 	}
+	
 }

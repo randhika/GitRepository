@@ -1,12 +1,25 @@
 package com.android.findme;
 
-import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.Roster.SubscriptionMode;
+import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.ChatManagerListener;
+import org.jivesoftware.smack.MessageListener;
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.Presence.Type;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,16 +35,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import br.livroandroid.transacao.Transacao;
 import br.livroandroid.transacao.TransacaoTask;
 import br.livroandroid.utils.MediaFileUtils;
 
 import com.facebook.Session;
+import com.facebook.widget.ProfilePictureView;
+import com.findme.model.Usuario;
 
 public class FindMeAppActivity extends Activity {
 	public static String LOG_TAG = "FINDME";
@@ -39,10 +54,11 @@ public class FindMeAppActivity extends Activity {
 	public static final int TIRA_FOTO = 1002;
 	public static final int FOTO_GALERIA = 1003;
 	public static final String APP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)  + "/FindMe";
-	private TransacaoTask task;
+	protected static XMPPConnection connection;
+	private final String HOST = "192.168.1.2";
+	private final int PORT = 5222;
 	
-	public void startTransacao(Context context, Transacao transacao){
-		task = new TransacaoTask(context, transacao, R.string.logando);
+	public void startTransacao(TransacaoTask task){
 		task.execute();
 	}
 	
@@ -84,6 +100,9 @@ public class FindMeAppActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				try{
+					if(connection != null && connection.isConnected()){
+						connection.disconnect();
+					}
 					Session.getActiveSession().closeAndClearTokenInformation();
 					if(Session.getActiveSession() == null || Session.getActiveSession().isClosed()){
 						Log.i(LOG_TAG, "Session Closed!");
@@ -111,9 +130,6 @@ public class FindMeAppActivity extends Activity {
 	
 	
 	public void selecionaGaleria(MenuItem item){
-//		Toast.makeText(getApplicationContext(), "abre a galeria", Toast.LENGTH_SHORT).show();
-//		Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-//		startActivityForResult(intent,FOTO_GALERIA);
 		MediaFileUtils.gallerySearch(this, "image/*");
 	}
 	
@@ -130,13 +146,94 @@ public class FindMeAppActivity extends Activity {
 		return arquivo;
 	}
 	
-	public static String takePicture(Activity activity, String id){
-		Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File caminho = MediaFileUtils.getFile(MediaFileUtils.IMAGE_TYPE,id);
-		Uri uri = Uri.fromFile(caminho);
-		camera.putExtra(MediaStore.EXTRA_OUTPUT,uri);
-		activity.startActivityForResult(camera, TIRA_FOTO);
-		return caminho.getPath();
+//	public static String takePicture(Activity activity, String id){
+//		Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//		File caminho = MediaFileUtils.getFile(MediaFileUtils.IMAGE_TYPE,id);
+//		Uri uri = Uri.fromFile(caminho);
+//		camera.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+//		activity.startActivityForResult(camera, TIRA_FOTO);
+//		return caminho.getPath();
+//	}
+	
+	public void connectXMPP() {
+		ConnectionConfiguration configuration = new ConnectionConfiguration(
+				HOST, PORT);
+		connection = new XMPPConnection(configuration);
+		try{
+			connection.connect();
+			Log.i(LOG_TAG, "Connected ? " + connection.isConnected());
+			if (connection != null) {
+				SharedPreferences mysprefs = getSharedPreferences("user", MODE_PRIVATE);
+				//seta a aceitacao automatica para o usuario inicialmente
+				connection.getRoster().setSubscriptionMode(SubscriptionMode.accept_all);
+				// recupera os dados do usuario e tenta logar
+				String username = mysprefs.getString("username", null); 
+				String senha = "1234";
+				try{
+					Log.i(LOG_TAG, "Logging XMPP");
+					connection.login(username, senha);
+				}catch(XMPPException e){
+					Log.e(LOG_TAG,"UsuarioXMPP não encontrado, criando conta...");
+					Map<String, String> att = new HashMap<String, String>();
+					att.put("name", mysprefs.getString("name", null));
+					try{
+						connection.getAccountManager().createAccount(username,
+								senha, att);
+						Log.i(LOG_TAG, "Conta XMPP criada");
+					}catch(XMPPException acc_exc){
+						Log.e(LOG_TAG,"UsuarioXMPP não criado!", acc_exc);
+					}
+				}
+				setUserPresence();
+				Log.i(LOG_TAG, "XMPP log success!");
+			}
+		} catch (XMPPException e) {
+			Log.e(LOG_TAG,"XMPP Connection ERROR", e);
+			connection = null;
+		}
+	}
+	
+	public void setUserProfilePicture(ProfilePictureView fb_prof_pic, ImageView iv_prof, Usuario user){
+		if(user.getPicturePath() == null || user.getPicturePath().equals("")){
+			fb_prof_pic.setCropped(true);
+			fb_prof_pic.setProfileId(user.getFacebookId());
+		}else{
+			trocaImagens(fb_prof_pic, iv_prof, user.getPicturePath());
+		}
+	}
+	
+	public void setUserPresence() throws XMPPException{
+		if(connection != null){
+			Presence presence = new Presence(Type.available);
+			presence.setStatus("Tô na pista!");
+			connection.sendPacket(presence);
+		}else throw new XMPPException("Não Conectado!");
+	}
+	
+	public void setChatListenner(){
+		if(connection != null){
+			connection.getChatManager().addChatListener(new ChatManagerListener() {
+				
+				@Override
+				public void chatCreated(Chat chat, boolean createdLocally) {
+					if(!createdLocally){
+						chat.addMessageListener(new MessageListener() {
+							@Override
+							public void processMessage(Chat chat, Message message) {
+								NotificationManager notification_manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+								Notification notification = new NotificationCompat.Builder(getApplicationContext()).build();
+								notification.icon = R.drawable.alert_48;
+//								notification.fullScreenIntent 
+//								notification.contentIntent
+//								notification.number
+								notification.tickerText = "Mensagem de " + message.getFrom();
+								notification_manager.notify(9999, notification);
+							}
+						});
+					}
+				}
+			});
+		}
 	}
 	
 	public void printHash(){

@@ -28,17 +28,17 @@ import android.widget.Toast;
 import br.livroandroid.utils.MediaFileUtils;
 
 import com.facebook.widget.ProfilePictureView;
+import com.findme.model.Usuario;
 
 public class Dashboard extends FindMeAppActivity{
 	private SharedPreferences myPrefs;
 	private ProfilePictureView profileView;
 	private ImageView fotoRodape;
 	private TextView tv_endereco;
-	private String id;
-	private String username;
-	private String arquivo_foto;
 	private Location mylocation;
 	private LocationManager locationManager;
+	private Usuario app_user;
+	
 	private LocationListener location_listener = new LocationListener() {
 		@Override
 		public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -86,30 +86,32 @@ public class Dashboard extends FindMeAppActivity{
 			}
 		};
 		
-		
+		setChatListenner();
 		setContentView(R.layout.layout_dashboard);
 		myPrefs = getSharedPreferences("user", MODE_PRIVATE);
-		username = myPrefs.getString("username", null);
-		id= myPrefs.getString("id", null);
+		
+		app_user = new Usuario(null, myPrefs.getString("username", null), myPrefs.getString("id", null),
+				myPrefs.getString("sexo", null), myPrefs.getString("foto", null));
+		
 		fotoRodape =(ImageView) findViewById(R.id.iv_find_foto_footer);
 		profileView = (ProfilePictureView) findViewById(R.id.foto_footer);
 		tv_endereco = (TextView) findViewById(R.id.tv_endereco);
-		arquivo_foto = myPrefs.getString("foto", null);
-		setTitle(username);
-		
-		System.out.println(id);
+		setTitle(app_user.getUser_name());
+//		System.out.println(id);
 		
 		setTitleColor(Color.WHITE);
 		
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		locationManager.addGpsStatusListener(gps_listener);
-		Log.i(LOG_TAG, "foto do prefs " + arquivo_foto);
-		if(arquivo_foto == null){
-			profileView.setCropped(true);
-			profileView.setProfileId(id);
-		}else{
-			trocaImagens(profileView, fotoRodape, arquivo_foto);
-		}
+//		locationManager.addGpsStatusListener(gps_listener);
+//		if(app_user.getPicturePath() == null){
+//			profileView.setCropped(true);
+//			profileView.setProfileId(app_user.getFacebookId());
+//		}else{
+//			trocaImagens(profileView, fotoRodape, app_user.getPicturePath());
+//		}
+		
+		setUserProfilePicture(profileView, fotoRodape, app_user);
+		
 		getMyLocation();
 		updateLocation();
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30, 500, location_listener);
@@ -124,9 +126,9 @@ public class Dashboard extends FindMeAppActivity{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		arquivo_foto = myPrefs.getString("foto", null);
+		app_user.setPicturePath(myPrefs.getString("foto", null));
 		if(requestCode == MediaFileUtils.TAKE_PICTURE && resultCode == RESULT_OK){
-			trocaImagens(profileView, fotoRodape, arquivo_foto);
+			trocaImagens(profileView, fotoRodape, app_user.getPicturePath());
 		}else if(requestCode == MediaFileUtils.TAKE_GALLERY && resultCode == RESULT_OK){
 			trocaImagens(profileView, fotoRodape, getPathFileSelected(data));
 		}
@@ -164,6 +166,8 @@ public class Dashboard extends FindMeAppActivity{
 				Log.i(LOG_TAG, "ENDERECO " + endereco.getAddressLine(0));
 				tv_endereco.setText(endereco.getAddressLine(0));
 				tv_endereco.invalidate();
+				com.findme.model.Location location = new com.findme.model.Location(null,mylocation.getLatitude(), mylocation.getLongitude(),endereco.getAddressLine(0)); 
+				app_user.setLocation(location);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -173,7 +177,22 @@ public class Dashboard extends FindMeAppActivity{
 	}
 	
 	public void findBoys(View v){
-		startActivity(new Intent(this, ListUsersActivity.class));
+		Intent intent = new Intent(this, ListUsersActivity.class);
+		intent.putExtra("app_user", app_user);
+		intent.putExtra("users_gender", "male");
+		startActivity(intent);
+	}
+	public void findGirls(View v){
+		Intent intent = new Intent(this, ListUsersActivity.class);
+		intent.putExtra("app_user", app_user);
+		intent.putExtra("users_gender", "female");
+		startActivity(intent);
+	}
+	public void findAll(View v){
+		Intent intent = new Intent(this, ListUsersActivity.class);
+		intent.putExtra("app_user", app_user);
+		intent.putExtra("users_gender", "both");
+		startActivity(intent);
 	}
 	
 	public void sincronizar(MenuItem menu){
@@ -181,7 +200,7 @@ public class Dashboard extends FindMeAppActivity{
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				profileView.setProfileId(id);
+				profileView.setProfileId(app_user.getFacebookId());
 				getMyLocation();
 				updateLocation();
 			}

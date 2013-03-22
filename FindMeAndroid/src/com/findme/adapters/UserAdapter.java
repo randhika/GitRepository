@@ -6,39 +6,21 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import br.livroandroid.utils.DownloadImagemUtil;
 
 import com.android.findme.R;
+import com.android.findme.util.ValidateUtils;
 import com.facebook.widget.ProfilePictureView;
 import com.findme.model.Usuario;
 
-public class UserAdapter extends BaseAdapter {
-	
-	private List<Usuario> users;
-	private Activity context;
+public class UserAdapter extends FindMeBaseAdapter {
 	
 	public UserAdapter(Activity context,List<Usuario> users){
-		this.users = users;
-		this.context = context;
+		super(context, users);
 	}
 
-	@Override
-	public int getCount() {
-		return users.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return users.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -54,13 +36,13 @@ public class UserAdapter extends BaseAdapter {
 			viewLinha.setTag(holder);
 		}
 		ViewHolder holder = (ViewHolder) viewLinha.getTag();
-		Usuario user = users.get(position);
-		DownloadImagemUtil downloader = new DownloadImagemUtil(context);
-//		downloader.download(context, user.getPicturePath(), holder.foto, progress)
-		
-		holder.profile_thumb.setProfileId(user.getFacebookId());
-		holder.nome.setText(user.getUserName());
-		holder.foto.setContentDescription(user.getUserName());
+		Usuario user = (Usuario) lista.get(position);
+		holder.loader = (ProgressBar) viewLinha.findViewById(R.id.progress_user_foto);
+		if(!ValidateUtils.validateIsNull(holder.foto,holder.profile_thumb,holder.loader, user)){
+			gerenciaFotoPerfil(holder.foto, holder.profile_thumb,holder.loader, user);
+		}
+		holder.nome.setText(user.getUser_name());
+		holder.foto.setContentDescription(user.getUser_name());
 		holder.sexo.setContentDescription(user.getGender().name());
 		return viewLinha;
 	}
@@ -70,6 +52,7 @@ public class UserAdapter extends BaseAdapter {
 		ProfilePictureView profile_thumb;
 		TextView nome;
 		ImageView sexo;
+		ProgressBar loader;
 //		TextView local;
 	}
 }
