@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="left|center_vertical" >
+
+    <!-- layout com imagem do carro , nome e descricao -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:gravity="center_vertical"
+        android:minHeight="40dp"
+        android:orientation="horizontal"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <!-- imagem do carro -->
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center|center_vertical"
+                android:src="@drawable/ic_guia102"
+                android:contentDescription="@string/app_name"
+                />
+            <!-- barra de progresso enquanto carrega a imagem -->
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginRight="6dp"
+                android:gravity="center|center_vertical" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical" >
+
+            <!-- nome do carro -->
+
+            <TextView
+                android:id="@+id/tnome"
+                style="@style/texto14negrito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nome"
+                android:textColor="@color/preto" />
+            <TextView
+                android:id="@+id/tTel"
+                style="@style/texto14negrito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tel"
+                android:textColor="@color/preto" />
+            <TextView
+                android:id="@+id/tEndereco"
+                style="@style/texto12negrito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/endereco"
+                android:textColor="@color/preto" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

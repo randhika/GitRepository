@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include
+        android:id="@+id/actionBar"
+        layout="@layout/action_bar" />
+
+    <Button
+        android:id="@+id/listaAtiv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/actionBar"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@null"
+        android:text="@string/atividades"
+        android:textSize="10dp"
+        android:drawableTop="@drawable/btn_atividades"
+        android:textColor="#000"
+        android:onClick="buscaPorAtividade"
+		/>
+    <Button
+        android:id="@+id/listaBairro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/actionBar"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:text="Buscar por Bairros"
+        android:textSize="10dp"
+        android:drawableTop="@drawable/btn_bairros"
+        android:textColor="#000"
+        android:onClick="buscaPorBairro"
+		/>
+
+</RelativeLayout>
