@@ -140,8 +140,7 @@ public class LoginActivity extends FindMeAppActivity implements Transacao{
 			public void onCompleted(GraphUser user, Response response) {
 				if(user != null){
 					if(user != null){
-						app_user = new Usuario(null, user.getUsername(), user.getId(), user.getInnerJSONObject().optString("gender"),
-								null);
+						app_user = new Usuario(null, user.getUsername(), user.getId(), user.getInnerJSONObject().optString("gender"),"",null);
 						Log.i(LOG_TAG, "User found");
 						if(user.getLocation()!=null){
 							Log.i(LOG_TAG, user.getLocation().getStreet());

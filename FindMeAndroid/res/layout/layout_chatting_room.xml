@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChattingRoomActivity" 
-    android:background="@drawable/gears">
+    >
 
     <ListView 
         android:id="@+id/lv_msgs"

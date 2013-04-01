@@ -37,8 +37,9 @@ public class ListUsersActivity extends FindMeAppActivity implements Transacao{
 					long id) {
 				Usuario user = (Usuario) adapter.getItemAtPosition(position);
 				Intent intent = new Intent(getApplicationContext(), ChattingRoomActivity.class);
-				intent.putExtra("user_selected", user);
+				intent.putExtra("recipient_user", user);
 				intent.putExtra("app_user", app_user);
+				intent.putExtra("chat_create", true);
 				startActivity(intent);
 			}
 		});

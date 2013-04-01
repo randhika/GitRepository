@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import br.livroandroid.utils.HttpHelper;
 
+import com.android.findme.util.UsuarioConverter;
 import com.findme.model.Usuario;
 
 public class UserServices {
@@ -21,17 +22,17 @@ public class UserServices {
 //		System.out.println(url);
 //		InputStream response = HttpHelper.doPost(url, "UTF-8");
 		List<Usuario> users = null;
-		String resposta = "[{\"user_id\":1L,\"facebookId\":\"100005428717630\",\"gender\":\"MALE\",\"picturePath\":\"\",\"user_name\":\"dani\"},{\"user_id\":2L,\"facebookId\":\"100005428717630\",\"gender\":\"MALE\",\"picturePath\":\"http://caminho_da_foto.jpg\",\"user_name\":\"danilo\"}]";
+		String resposta = "[{\"user_id\":1,\"facebookId\":\"100005428717630\",\"gender\":\"MALE\",\"xmpp_name\":\"dani@192.168.1.2/findme\",\"picturePath\":\"\",\"user_name\":\"dani\"},{\"user_id\":2,\"facebookId\":\"100005428717630\",\"gender\":\"MALE\",\"xmpp_name\":\"danilo@192.168.1.2/findme\",\"picturePath\":\"http://caminho_da_foto.jpg\",\"user_name\":\"danilo\"}]";
 //		if(response != null){
 			try {
 //				JSONArray json_users_list = new JSONArray(HttpHelper.streamToString(response, "UTF-8"));
 				JSONArray json_users_list = new JSONArray(resposta);
 				users = new ArrayList<Usuario>();
 				for(int i =0 ; i < json_users_list.length() ; i++){
-					Usuario usuario = new Usuario();
+					UsuarioConverter converter = new UsuarioConverter();
 					if(json_users_list.length() > 0){
 						JSONObject json = (JSONObject)json_users_list.get(i); 
-						usuario = (Usuario) usuario.jsonToModel(json, usuario);
+						Usuario usuario = (Usuario) converter.jsonToObject(json);
 						users.add(usuario);
 					}
 				}

@@ -1,13 +1,11 @@
 package com.findme.model;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
-import br.livroandroid.utils.ModelConverter;
+import com.android.findme.FindMeAppActivity;
 
 
-public class Usuario extends ModelConverter implements Serializable{
+public class Usuario implements Serializable{
 
 	/**
 	 * 
@@ -15,6 +13,7 @@ public class Usuario extends ModelConverter implements Serializable{
 	private static final long serialVersionUID = -1578865085361783861L;
 	private Long user_id;
 	private String user_name;
+	private String xmpp_name;
 	private String facebookId;
 	private Enum<SEXO> gender;
 	private String picturePath;
@@ -23,7 +22,7 @@ public class Usuario extends ModelConverter implements Serializable{
 	public enum SEXO {MALE,FEMALE}
 	
 	public Usuario(Long user_id, String user_name, String facebookId,
-			String gender, String picturePath) {
+			String gender, String xmpp_name, String picturePath) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -34,6 +33,7 @@ public class Usuario extends ModelConverter implements Serializable{
 			this.gender = SEXO.FEMALE;
 			
 		}
+		this.xmpp_name = xmpp_name;
 		this.picturePath = picturePath;
 	}
 
@@ -47,6 +47,15 @@ public class Usuario extends ModelConverter implements Serializable{
 	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
 	}
+
+	public String getXmpp_name() {
+		return xmpp_name;
+	}
+
+	public void setXmpp_name() {
+		this.xmpp_name = user_name+FindMeAppActivity.SUFIX_SMACK;
+	}
+
 
 	public Enum<SEXO> getGender() {
 		return gender;
@@ -79,6 +88,9 @@ public class Usuario extends ModelConverter implements Serializable{
 
 
 	public void setUser_name(String user_name) {
+		if(user_name.trim().endsWith(FindMeAppActivity.SUFIX_SMACK)){
+			user_name = user_name.split(FindMeAppActivity.SUFIX_SMACK)[0];
+		}
 		this.user_name = user_name;
 	}
 
@@ -90,20 +102,6 @@ public class Usuario extends ModelConverter implements Serializable{
 
 	public void setLocation(Location location) {
 		this.location = location;
-	}
-
-
-	@Override
-	public void invoqueSetters(Object valorJson, Method setters, Object model)
-			throws IllegalArgumentException, IllegalAccessException,
-			InvocationTargetException {
-		if(valorJson != null && !valorJson.toString().equalsIgnoreCase("null")){
-			if(setters.getParameterTypes()[0].getName().equals(Enum.class.getName())){
-				setters.invoke(model, Enum.valueOf(Usuario.SEXO.class, valorJson.toString()));
-			}else{
-				setters.invoke(model, valorJson);
-			}
-		}
 	}
 
 

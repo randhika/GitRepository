@@ -41,7 +41,7 @@ public class UserAdapter extends FindMeBaseAdapter {
 		if(!ValidateUtils.validateIsNull(holder.foto,holder.profile_thumb,holder.loader, user)){
 			gerenciaFotoPerfil(holder.foto, holder.profile_thumb,holder.loader, user);
 		}
-		holder.nome.setText(user.getUser_name());
+		holder.nome.setText(user.getXmpp_name());
 		holder.foto.setContentDescription(user.getUser_name());
 		holder.sexo.setContentDescription(user.getGender().name());
 		return viewLinha;

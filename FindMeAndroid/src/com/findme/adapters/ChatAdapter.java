@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.findme.FindMeAppActivity;
 import com.android.findme.R;
 import com.android.findme.util.ValidateUtils;
 import com.facebook.widget.ProfilePictureView;
@@ -33,6 +32,7 @@ public class ChatAdapter extends FindMeBaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View linha = convertView;
+		Log.i(this.getClass().getSimpleName().toUpperCase(new Locale("pt-BR")),"mensagens " + lista.size());
 		Message mensagem = (Message) lista.get(position);
 		LayoutInflater inflater = context.getLayoutInflater();
 		ViewHolder holder;
@@ -42,11 +42,11 @@ public class ChatAdapter extends FindMeBaseAdapter {
 			if(mensagem.getFrom().equalsIgnoreCase(app_user.getUser_name())){
 				linha = inflater.inflate(R.layout.sender_msg_row, null);
 				holder.mensagem = (TextView) linha.findViewById(R.id.tv_user_chat_msg);
-			}else if(mensagem.getFrom().equalsIgnoreCase(user_recipient.getUser_name()+"@192.168.1.2/findme")){
+			}else if(mensagem.getFrom().equalsIgnoreCase(user_recipient.getXmpp_name()) || mensagem.getFrom().equalsIgnoreCase(user_recipient.getUser_name()) ){
 				linha = inflater.inflate(R.layout.receiver_msg_row, null);
+				holder.mensagem = (TextView) linha.findViewById(R.id.tv_recipient_msg);
 //				holder.foto = (ImageView) linha.findViewById(R.id.iv_recipient_photo);
 //				holder.profile_thumb = (ProfilePictureView) linha.findViewById(R.id.recipient_row_profile_picture);
-				holder.mensagem = (TextView) linha.findViewById(R.id.tv_recipient_msg);
 //				holder.progress = (ProgressBar) linha.findViewById(R.id.recipient_progress);
 			}
 			linha.setTag(holder);

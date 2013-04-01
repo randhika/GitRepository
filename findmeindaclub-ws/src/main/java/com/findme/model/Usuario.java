@@ -11,6 +11,7 @@ public class Usuario implements Serializable{
 	private static final long serialVersionUID = -1578865085361783861L;
 	private Long user_id;
 	private String user_name;
+	private String JID;
 	private String facebookId;
 	private Enum<SEXO> gender;
 	private String picturePath;
@@ -19,7 +20,7 @@ public class Usuario implements Serializable{
 	public enum SEXO {MALE,FEMALE}
 	
 	public Usuario(Long user_id, String user_name, String facebookId,
-			String gender, String picturePath) {
+			String gender, String JID, String picturePath) {
 		super();
 		this.user_id = user_id;
 		this.user_name = user_name;
@@ -30,6 +31,7 @@ public class Usuario implements Serializable{
 			this.gender = SEXO.FEMALE;
 			
 		}
+		this.JID = JID;
 		this.picturePath = picturePath;
 	}
 
@@ -43,6 +45,16 @@ public class Usuario implements Serializable{
 	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
 	}
+
+	public String getJID() {
+		return JID;
+	}
+
+
+	public void setJID(String jID) {
+		JID = jID;
+	}
+
 
 	public Enum<SEXO> getGender() {
 		return gender;

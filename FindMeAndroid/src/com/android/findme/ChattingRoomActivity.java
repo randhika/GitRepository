@@ -1,13 +1,10 @@
 package com.android.findme;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.Roster;
-import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 
@@ -22,7 +19,7 @@ import android.widget.ListView;
 import com.findme.adapters.ChatAdapter;
 import com.findme.model.Usuario;
 
-public class ChattingRoomActivity extends FindMeAppActivity{
+public class ChattingRoomActivity extends FindMeAppActivity {
 
 	private Chat chat;
 	private ArrayList<Message> mensagens;
@@ -31,50 +28,38 @@ public class ChattingRoomActivity extends FindMeAppActivity{
 	private EditText et_msg;
 	private Usuario recipient_user;
 	private Usuario app_user;
-	
-	public void setConnection(){
-		if(connection == null){
-			Thread t = new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					connectXMPP();
-				};
-			});
-			t.start();
-		}
-	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_chatting_room);
-		recipient_user = (Usuario) getIntent().getSerializableExtra("user_selected");
-		app_user = (Usuario) getIntent().getSerializableExtra("app_user");
-		if(savedInstanceState != null){
-			mensagens = (ArrayList<Message>) savedInstanceState.getSerializable("mensagens");
-		}else{
+		if (savedInstanceState != null) {
+			mensagens = (ArrayList<Message>) savedInstanceState
+					.getSerializable("mensagens");
+		} else {
 			mensagens = new ArrayList<Message>();
 		}
-//		setConnection();
-		chat = iniciateChat();
+		recipient_user = (Usuario) getIntent().getSerializableExtra(
+				"recipient_user");
+		app_user = (Usuario) getIntent().getSerializableExtra("app_user");
+		String chatId = getIntent().getStringExtra("chat_id");
+		chat = iniciateChat(chatId);
+		Log.i(LOG_TAG, "Chatting with " + chat.getParticipant());
 		et_msg = (EditText) findViewById(R.id.et_msg);
 		lv_msgs = (ListView) findViewById(R.id.lv_msgs);
-		setAdapter();
-		Log.i(LOG_TAG, "Chatting with " + chat.getParticipant());
 		setTitle(recipient_user.getUser_name());
-		showRosters();
+		setAdapter();
 	}
-	
-	public Chat iniciateChat(){
-		ChatManager chatmannager = connection.getChatManager();
-		Chat chat = chatmannager.createChat(recipient_user.getUser_name()+"@"+connection.getHost(), new MessageListener() {
+
+	public Chat iniciateChat(String chatId) {
+		MessageListener msgListenner = new MessageListener() {
 			@Override
-			public void processMessage(Chat arg0, Message arg1) {
-				Log.i(LOG_TAG, "Mensagem recebida de " + arg1.getFrom() + " " + arg1.getBody());
-				if(arg1.getBody() != null){
-					addMessage(arg1);
+			public void processMessage(Chat chat, Message msg) {
+				Log.i(LOG_TAG, "Mensagem recebida de " + msg.getFrom()
+						+ " " + msg.getBody());
+				if (msg.getBody() != null) {
+					addMessage(msg);
 					handler.post(new Runnable() {
 						@Override
 						public void run() {
@@ -82,9 +67,33 @@ public class ChattingRoomActivity extends FindMeAppActivity{
 						}
 					});
 				}
-				
 			}
-		});
+		};
+		
+		ChatManager chatmannager = connection.getChatManager();
+		Chat chat;
+		Usuario recipient_user = (Usuario) getIntent().getSerializableExtra(
+				"recipient_user");
+		if(chatId != null){
+			Log.i(LOG_TAG, "Chatting LISTENNER " + chatId);
+			chat = chatmannager.getThreadChat(chatId);
+			chat.addMessageListener(msgListenner);
+			Message mensagem = new Message(app_user.getXmpp_name());
+			mensagem.setFrom(recipient_user.getXmpp_name());
+			mensagem.setBody(getIntent().getStringExtra("message"));
+			addMessage(mensagem);
+		}else{
+			chat = chatmannager.createChat(recipient_user.getXmpp_name(),msgListenner);
+		}
+		// if(chat != null){
+		// try {
+		// connection.getRoster().createEntry(destinatario,
+		// recipient_user.getUser_name(), null);
+		// } catch (XMPPException e) {
+		// e.printStackTrace();
+		// Log.e(LOG_TAG,"Entry not Created");
+		// }
+		// }
 		return chat;
 	}
 
@@ -95,7 +104,7 @@ public class ChattingRoomActivity extends FindMeAppActivity{
 		return true;
 	}
 
-	public void enviaMsg(View v){
+	public void enviaMsg(View v) {
 		try {
 			Message mensagem = new Message();
 			mensagem.setBody(et_msg.getText().toString());
@@ -110,35 +119,33 @@ public class ChattingRoomActivity extends FindMeAppActivity{
 				}
 			});
 		} catch (XMPPException e) {
-			Log.e(LOG_TAG,"Mensagem não enviada");
+			Log.e(LOG_TAG, "Mensagem não enviada");
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putSerializable("mensagens", mensagens);
 		super.onSaveInstanceState(outState);
 	}
-	
-	public void setAdapter(){
-		lv_msgs.setAdapter(new ChatAdapter(ChattingRoomActivity.this, mensagens, app_user, recipient_user));
+
+	public void setAdapter() {
+		lv_msgs.setAdapter(new ChatAdapter(ChattingRoomActivity.this,
+				mensagens, app_user, recipient_user));
 	}
-	
-	public synchronized void addMessage(Message msg){
+
+	public synchronized void addMessage(Message msg) {
 		mensagens.add(msg);
 	}
-	
-	public void showRosters(){
-		if(connection != null){
-			Roster rosters = connection.getRoster();
-			Iterator<RosterEntry> it = rosters.getEntries().iterator();
-			while(it.hasNext()){
-				RosterEntry entry = it.next();
-				System.out.println(entry.getType());
-			}
-			
+
+	@Override
+	protected void onDestroy() {
+		if (connection != null) {
+			Log.i(LOG_TAG, "ondestroy CHatting Room");
+			connection = null;
 		}
-		
+		super.onDestroy();
 	}
+
 }
