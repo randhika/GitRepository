@@ -60,8 +60,6 @@ public class AtividadeAdapter extends BaseAdapter {
 			// ja existe no cache
 			holder = (ViewHolder) view.getTag();
 		}
-
-		Log.i(Guia102Aplicacao.TAG, "progress");
 		Atividade a = atividades.get(position);
 		// Agora que temos a view podemos atualizar os valores
 		holder.tNome.setText(a.getNome());
