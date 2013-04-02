@@ -12,7 +12,7 @@
     
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-        <item name="android:background">@drawable/com_facebook_top_background</item> 
+        <item name="android:background">@drawable/bkg_tipo_web_cinza</item> 
         
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
@@ -21,7 +21,7 @@
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@drawable/com_facebook_top_background</item>
+        <item name="android:background">@drawable/bkg_tipo_web_cinza</item>
     </style>
 
 </resources>

@@ -2,9 +2,7 @@ package com.android.findme;
 
 import java.io.IOException;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -13,7 +11,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.livroandroid.transacao.Transacao;
 import br.livroandroid.transacao.TransacaoTask;
+import br.livroandroid.utils.AndroidUtils;
 import br.livroandroid.utils.MediaFileUtils;
 
 import com.facebook.widget.ProfilePictureView;
@@ -149,29 +147,8 @@ public class Dashboard extends FindMeAppActivity implements Transacao {
 		}
 	}
 
-	public void checkGPSStatus(LocationManager locationManager) {
-		LocationProvider provider = locationManager
-				.getProvider(LocationManager.GPS_PROVIDER);
-		if (!locationManager.isProviderEnabled(provider.getName())) {
-			final AlertDialog alert = new AlertDialog.Builder(this)
-					.setTitle(provider.getName() + " Desabilitado")
-					.setMessage(
-							"Cara, habilite seu " + provider.getName()
-									+ " senão não funciona!").create();
-			alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							alert.dismiss();
-						}
-					});
-			alert.show();
-		}
-	}
-
 	public void getMyLocation() {
-		checkGPSStatus(locationManager);
+		AndroidUtils.checkGpsStatus(this,locationManager, R.string.alert_unavailable_gps_title, R.string.alert_unavailable_gps_message);
 		Log.i(LOG_TAG, "Getting Location");
 		mylocation = locationManager
 				.getLastKnownLocation(LocationManager.GPS_PROVIDER);

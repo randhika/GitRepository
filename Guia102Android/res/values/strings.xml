@@ -6,6 +6,7 @@
     <string name="atualizando">Atualizando Dados OffLine...</string>
     <string name="title_activity_dashboard">Guia102 Android</string>
     <string name="logo">Logo</string>
+    <string name="descricao">Descrição:</string>
     <string name="guia102">Guia102noCelular</string>
     <string name="atividades">Buscar por Categorias</string>
     <string name="pesquisar">Pesquisar</string>
@@ -15,8 +16,11 @@
     <string name="endereco">Endereço:</string>
     <string name="tel">Telefone:</string>
     <string name="cel">Celular:</string>
-    <string name="emamil">Email:</string>
+    <string name="email">Email:</string>
     <string name="site">Site:</string>
     <string name="conexao_indisponivel">Conexão Indisponível</string>
+        <string name="alert_unavailable_gps_title">GPS Desabilitado</string>
+    <string name="alert_unavailable_gps_message">Este app utiliza o GPS, por favor habilite-o</string>
+    
 
 </resources>

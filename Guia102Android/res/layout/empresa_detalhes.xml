@@ -1,77 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fundo">
-    
-    <include layout="@layout/action_bar"/>
-    
-    <LinearLayout 
+    android:background="@color/fundo"
+    android:orientation="vertical" >
+
+    <include layout="@layout/action_bar" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:layout_weight="1"
-        >
-        <LinearLayout 
-	        android:layout_width="match_parent"
-    	    android:layout_height="360dp"
-        	android:orientation="vertical"
-        	android:background="@drawable/bgr_action_bar"
-            >
-            
-         <com.google.android.maps.MapView
-        	android:id="@+id/mapView"
-       		android:layout_width="match_parent"
-        	android:layout_height="320dp"
-        	android:clickable="true"
-        	android:apiKey="0nzPR_sYAcM6BK-bSnwLYHHAXRLeCjXnETavOKQ"
-        	 />
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:background="@drawable/bgr_action_bar"
+            android:orientation="vertical" >
+
+            <fragment
+                android:id="@+id/frag_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
-        
-	    <ScrollView 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        >
-	        <LinearLayout 
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:padding="6dp"
-	            android:orientation="vertical"
-	            android:gravity="center">
-		        <View
-		                android:layout_width="match_parent"
-		                android:layout_height="1dp"
-		                android:layout_marginBottom="6dp"
-		                android:layout_marginTop="6dp"
-		                android:background="#dddddd" />
-		        <TextView 
-		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            style="@style/texto14"
-		            android:layout_weight="1"
-		            android:text="@string/endereco"
-		            />
-		        <TextView 
-		            android:id="@+id/tEndereco"
-		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            style="@style/texto14"
-		            android:layout_weight="1"/>
-		        <TextView 
-		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            style="@style/texto14"
-		            android:layout_weight="1"
-		            android:text="Observacoes"
-		            />
-		        <TextView 
-		            android:id="@+id/tObservacoes"
-		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            style="@style/texto14"
-		            android:layout_weight="1"/>
-	        </LinearLayout>
-	    </ScrollView>
-       </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="6dp" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="6dp"
+                    android:background="#dddddd" />
+
+                <TextView
+                    style="@style/texto14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/site"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tsite"
+                    style="@style/texto14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoLink="web" />
+
+                <TextView
+                    style="@style/texto14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/descricao"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tObservacoes"
+                    style="@style/texto14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
 </LinearLayout>

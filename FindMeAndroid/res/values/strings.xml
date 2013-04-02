@@ -17,11 +17,15 @@
     <string name="sinc">Sincronizar</string>
     <string name="edit_profile">Editar Perfil</string>
     <string name="title_activity_profile">Perfil</string>
-    <string name="logando">Logando...</string>
+    <string name="logando">Logando#8230</string>
+    <string name="loading">Carregando#8230</string>
     <string name="loginFB">Logar com Facebook</string>
     <string name="loginFind">Logar com FindMe</string>
     <string name="title_activity_chatting_room">Chatting Room</string>
     <string name="action_settings">Settings</string>
     <string name="bt_enviar">Enviar</string>
+    <string name="alert_unavailable_gps_title">GPS Desabilitado</string>
+    <string name="alert_unavailable_gps_message">Este app utiliza o GPS, por favor habilite-o</string>
+    
 
 </resources>
