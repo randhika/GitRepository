@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import br.com.suaempresa.modelos.Atividade;
-import br.com.suaempresa.modelos.Bairro;
+import br.com.guia102.modelos.Atividade;
+import br.com.guia102.modelos.Bairro;
 
 import com.android.guia102android.activity.Guia102Aplicacao;
 import com.android.guia102android.activity.R;

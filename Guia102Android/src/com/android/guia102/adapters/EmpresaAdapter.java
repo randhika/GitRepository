@@ -12,7 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import br.com.suaempresa.modelos.Empresa;
+import br.com.guia102.modelos.Empresa;
 import br.livroandroid.utils.DownloadImagemUtil;
 
 import com.android.guia102android.activity.Guia102Aplicacao;
@@ -73,11 +73,9 @@ public class EmpresaAdapter extends BaseAdapter {
 			holder = (ViewHolder) view.getTag();
 		}
 
-		// VERIFICAR PQ O IMAGEFOTO ESTA NULL
 		holder.imgFoto.setImageBitmap(null);
 		Log.i(Guia102Aplicacao.TAG, "progress");
 		Empresa e = empresas.get(position);
-		// Agora que temos a view podemos atualizar os valores
 		holder.tNome.setText(e.getNome_fantasia());
 		if (holder.tTel != null) {
 			holder.tTel.setText(e.getTelefone1());

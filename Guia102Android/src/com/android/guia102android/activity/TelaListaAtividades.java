@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import br.com.suaempresa.modelos.Atividade;
-import br.com.suaempresa.modelos.Cidade;
+import br.com.guia102.modelos.Atividade;
+import br.com.guia102.modelos.Cidade;
 import br.livroandroid.transacao.Transacao;
 
 import com.android.guia102.adapters.AtividadeAdapter;

@@ -16,9 +16,9 @@ import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Environment;
-import br.com.suaempresa.modelos.Atividade;
-import br.com.suaempresa.modelos.Bairro;
-import br.com.suaempresa.modelos.Empresa;
+import br.com.guia102.modelos.Atividade;
+import br.com.guia102.modelos.Bairro;
+import br.com.guia102.modelos.Empresa;
 import br.livroandroid.utils.AndroidUtils;
 import br.livroandroid.utils.FtpService;
 import br.livroandroid.utils.HttpHelper;
@@ -38,8 +38,7 @@ public class Guia102Service extends Guia102Activity {
 		List<Atividade> ativis = new ArrayList<Atividade>();
 		if (!AndroidUtils.isNetworkAvailable(context)) {
 			System.out.println("VAI LER DO XML");
-			File xml = new File(Environment.getExternalStorageDirectory()
-					+ "/atividades.xml");
+			File xml = new File(APP_FILE_DOWN_DIR,"atividades.xml");
 			ativis = (List<Atividade>) x.fromXML(xml);
 		} else {
 			String url = URL.replace("{tipo}", service);
@@ -112,9 +111,7 @@ public class Guia102Service extends Guia102Activity {
 
 	public static boolean baixaArquivosXml(Context context) {
 		try {
-			String caminho = Environment.getExternalStorageDirectory()
-					.getPath();
-			new FtpService().baixaArquivos("../xmlAndroid", caminho,
+			FtpService.baixaArquivos("../xmlAndroid", APP_FILE_DOWN_DIR,
 					FTPClient.ASCII_FILE_TYPE, FTPClient.ASCII_FILE_TYPE);
 			return true;
 		} catch (Exception e) {

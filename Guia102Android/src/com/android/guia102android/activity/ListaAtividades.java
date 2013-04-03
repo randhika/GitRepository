@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.suaempresa.modelos.Atividade;
+import br.com.guia102.modelos.Atividade;
 
 public class ListaAtividades implements Serializable {
 	/**

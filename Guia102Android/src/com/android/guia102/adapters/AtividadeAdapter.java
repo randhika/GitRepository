@@ -4,16 +4,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import br.com.suaempresa.modelos.Atividade;
+import br.com.guia102.modelos.Atividade;
 
-import com.android.guia102android.activity.Guia102Aplicacao;
 import com.android.guia102android.activity.R;
 
 public class AtividadeAdapter extends BaseAdapter {
@@ -48,20 +46,16 @@ public class AtividadeAdapter extends BaseAdapter {
 	public View getView(int position, View view, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (view == null) {
-			// nao existe a view no cache para esta linha, entao cria um novo
 			holder = new ViewHolder();
-			// busca o layout para cada carro com foto
 			int layout = R.layout.atividad_item;
 			view = inflater.inflate(layout, null);
 			view.setTag(holder);
 			holder.tNome = (TextView) view.findViewById(R.id.tnome);
 			holder.imgFoto = (ImageView) view.findViewById(R.id.img);
 		} else {
-			// ja existe no cache
 			holder = (ViewHolder) view.getTag();
 		}
 		Atividade a = atividades.get(position);
-		// Agora que temos a view podemos atualizar os valores
 		holder.tNome.setText(a.getNome());
 		return view;
 	}

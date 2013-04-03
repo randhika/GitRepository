@@ -9,7 +9,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import br.com.suaempresa.modelos.Bairro;
+import br.com.guia102.modelos.Bairro;
 import br.livroandroid.transacao.Transacao;
 
 import com.android.guia102.adapters.BairroAdapter;

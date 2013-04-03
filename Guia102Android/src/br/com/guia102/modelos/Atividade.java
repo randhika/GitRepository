@@ -1,4 +1,4 @@
-package br.com.suaempresa.modelos;
+package br.com.guia102.modelos;
 
 import java.io.Serializable;
 import java.sql.SQLException;
