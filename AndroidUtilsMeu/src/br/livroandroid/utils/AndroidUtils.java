@@ -1,5 +1,6 @@
 package br.livroandroid.utils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -51,8 +52,17 @@ public class AndroidUtils {
 
 	public static void alertDialog(Context context, String mensagem) {
 		try {
-			int msg = Integer.valueOf(mensagem).intValue();
-			alertDialog(context, msg);
+			AlertDialog alert = new AlertDialog.Builder(context)
+					.setTitle(context.getString(R.string.app_name))
+					.setMessage(mensagem).create();
+			alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							return;
+						}
+					});
+			alert.show();
 		} catch (Exception e) {
 			Log.e(Contants.LOG_TAG, e.getMessage(), e);
 		}
@@ -67,13 +77,13 @@ public class AndroidUtils {
 		return false;
 	}
 
-	public static boolean checkGpsStatus(Context context, LocationManager locationManager, int title, int message) {
+	public static boolean checkGpsStatus(Context context,
+			LocationManager locationManager, int title, int message) {
 		LocationProvider provider = locationManager
 				.getProvider(LocationManager.GPS_PROVIDER);
 		if (!locationManager.isProviderEnabled(provider.getName())) {
 			final AlertDialog alert = new AlertDialog.Builder(context)
-					.setTitle(title)
-					.setMessage(message).create();
+					.setTitle(title).setMessage(message).create();
 			alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
 					new DialogInterface.OnClickListener() {
 
@@ -84,9 +94,12 @@ public class AndroidUtils {
 					});
 			alert.show();
 			return false;
-		}else return true;
+		} else
+			return true;
 	}
-	public static Boolean checkGpsStatus(Context context, LocationManager locationManager) {
+
+	public static Boolean checkGpsStatus(Context context,
+			LocationManager locationManager) {
 		LocationProvider provider = locationManager
 				.getProvider(LocationManager.GPS_PROVIDER);
 		return locationManager.isProviderEnabled(provider.getName());

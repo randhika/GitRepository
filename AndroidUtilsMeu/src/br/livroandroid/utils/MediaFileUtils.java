@@ -42,6 +42,18 @@ public class MediaFileUtils {
 		return arquivo;
 	}
 	
+	public static File createAppDownDir(String appname){
+		File diretorio = null;
+			diretorio = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),appname);
+			if(!diretorio.exists()){
+				Log.i("MEDIA FILE UTILS", "Deveria criar diretorio" + diretorio.getPath());
+				if(diretorio.mkdirs()){
+					Log.i("MEDIA FILE UTILS", "Criou diretorio" + diretorio.getPath());
+				}
+			}
+		return diretorio;
+	}
+	
 	public static Uri getUrifromFile(Integer type, String fbId){
 		Uri uri = Uri.fromFile(getFile(type, fbId));
 		return uri;
