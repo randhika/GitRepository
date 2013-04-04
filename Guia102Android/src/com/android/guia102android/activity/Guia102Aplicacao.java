@@ -1,7 +1,7 @@
 package com.android.guia102android.activity;
 
-import br.livroandroid.utils.DownloadImagemUtil;
 import android.app.Application;
+import br.livroandroid.utils.DownloadImagemUtil;
 
 public class Guia102Aplicacao extends Application{
     public static final String TAG = "GUIA102";
