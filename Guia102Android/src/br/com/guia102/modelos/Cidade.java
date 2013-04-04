@@ -1,4 +1,4 @@
-package br.com.guia102.modelos;
+package br.com.suaempresa.modelos;
 
 import java.io.Serializable;
 

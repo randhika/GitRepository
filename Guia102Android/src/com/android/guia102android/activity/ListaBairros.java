@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.guia102.modelos.Bairro;
+import br.com.suaempresa.modelos.Bairro;
 
 public class ListaBairros implements Serializable {
     /**

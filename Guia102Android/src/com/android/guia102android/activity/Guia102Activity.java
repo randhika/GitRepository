@@ -5,12 +5,9 @@ import android.os.AsyncTask;
 import br.livroandroid.transacao.Transacao;
 import br.livroandroid.transacao.TransacaoTask;
 import br.livroandroid.utils.AndroidUtils;
-import br.livroandroid.utils.MediaFileUtils;
 
 public class Guia102Activity extends Activity{
-	public static final String TAG = "GUIA102";
     private TransacaoTask transacao;
-    public static final String APP_FILE_DOWN_DIR = MediaFileUtils.createAppDownDir("Guia102Android").getPath();
     
     public void alert(String mensagem){
 	AndroidUtils.alertDialog(this, mensagem);

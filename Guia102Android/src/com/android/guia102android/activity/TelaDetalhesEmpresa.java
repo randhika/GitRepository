@@ -12,7 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import br.com.guia102.modelos.Empresa;
+import br.com.suaempresa.modelos.Empresa;
 import br.livroandroid.transacao.Transacao;
 import br.livroandroid.transacao.TransacaoTask;
 

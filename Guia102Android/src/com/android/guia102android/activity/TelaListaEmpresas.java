@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import br.com.guia102.modelos.Empresa;
+import br.com.suaempresa.modelos.Empresa;
 import br.livroandroid.transacao.Transacao;
 
 import com.android.guia102.adapters.EmpresaAdapter;

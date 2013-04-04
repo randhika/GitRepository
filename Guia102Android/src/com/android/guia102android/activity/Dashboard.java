@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 import br.livroandroid.transacao.Transacao;
@@ -15,7 +16,8 @@ public class Dashboard extends Guia102Activity implements Transacao {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dashboard);
-		if (new File(APP_FILE_DOWN_DIR).list().length == 0) {
+		if (!new File(Environment.getExternalStorageDirectory()
+				+ "/atividades.xml").exists()) {
 			if (!AndroidUtils.isNetworkAvailable(this)) {
 				AndroidUtils.alertDialog(this, R.string.conexao_indisponivel);
 				finish();
