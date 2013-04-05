@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import br.livroandroid.utils.DownloadImagemUtil;
 
+import com.android.findme.FindMeApplication;
 import com.facebook.widget.ProfilePictureView;
 import com.findme.model.Usuario;
 
@@ -44,7 +45,7 @@ public abstract class FindMeBaseAdapter extends BaseAdapter {
 			loader.setVisibility(ProgressBar.INVISIBLE);
 		}else{
 			pv_fb_profile.setVisibility(ProfilePictureView.INVISIBLE);
-			DownloadImagemUtil downloader = new DownloadImagemUtil(context);
+			DownloadImagemUtil downloader = ((FindMeApplication)context.getApplication()).getDownloader();
 			downloader.download(context, user.getPicturePath(), iv_profile, loader);
 		}
 		pv_fb_profile.invalidate();
