@@ -12,9 +12,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
-import android.location.Address;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Environment;
 import br.com.guia102.modelos.Atividade;
 import br.com.guia102.modelos.Bairro;
@@ -30,16 +27,15 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 public class Guia102Service extends Guia102Activity {
 	public static final String URL = "http://guia102nocelular.com.br/guia102Service/{tipo}";
 	private static final String ENCODING = "ISO-8859-1";
-	private static final boolean LOG_ON = false;
 
+	@SuppressWarnings("unchecked")
 	public static List<Atividade> getAtividades(Context context, String service)
 			throws IOException, SAXException {
 		XStream x = new XStream(new DomDriver(ENCODING));
 		List<Atividade> ativis = new ArrayList<Atividade>();
 		if (!AndroidUtils.isNetworkAvailable(context)) {
 			System.out.println("VAI LER DO XML");
-			File xml = new File(Environment.getExternalStorageDirectory()
-					+ "/atividades.xml");
+			File xml = new File(GUIA102_FILE_DIR,"atividades.xml");
 			ativis = (List<Atividade>) x.fromXML(xml);
 		} else {
 			String url = URL.replace("{tipo}", service);
@@ -52,14 +48,14 @@ public class Guia102Service extends Guia102Activity {
 		return ativis;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Bairro> getBairros(Context context, String service)
 			throws IOException, SAXException {
 		XStream x = new XStream(new DomDriver(ENCODING));
 		List<Bairro> bairros = new ArrayList<Bairro>();
 		if (!AndroidUtils.isNetworkAvailable(context)) {
 			System.out.println("VAI LER DO XML");
-			File xml = new File(Environment.getExternalStorageDirectory()
-					+ "/bairros.xml");
+			File xml = new File(GUIA102_FILE_DIR,"bairros.xml");
 			bairros = (List<Bairro>) x.fromXML(xml);
 		} else {
 			String url = URL.replace("{tipo}", service);
@@ -72,6 +68,7 @@ public class Guia102Service extends Guia102Activity {
 		return bairros;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Empresa> getEmpresas(Context context, String service,
 			String atividadeId, String cidadeId) throws IOException {
 		XStream x = new XStream(new DomDriver(ENCODING));
@@ -79,8 +76,7 @@ public class Guia102Service extends Guia102Activity {
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		if (!AndroidUtils.isNetworkAvailable(context)) {
 			System.out.println("VAI LER DO XML");
-			File xml = new File(Environment.getExternalStorageDirectory()
-					+ "/empresas.xml");
+			File xml = new File(GUIA102_FILE_DIR,"empresas.xml");
 			empresas = (List<Empresa>) x.fromXML(xml);
 			List<Empresa> novaliSta = new ArrayList<Empresa>();
 			for (Empresa e : empresas) {
@@ -103,18 +99,14 @@ public class Guia102Service extends Guia102Activity {
 		return empresas;
 	}
 
-	public Address pegaEndereco() {
-		LocationManager man = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		Location mylocation = man
-				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		return null;
-	}
-
 	public static boolean baixaArquivosXml(Context context) {
 		try {
-			String caminho = Environment.getExternalStorageDirectory()
-					.getPath();
-			new FtpService().baixaArquivos("../xmlAndroid", caminho,
+			String caminho = GUIA102_FILE_DIR;
+			File dest = new File(caminho);
+			if(!dest.exists()){
+				dest.mkdir();
+			}
+			FtpService.baixaArquivos("../xmlAndroid", caminho,
 					FTPClient.ASCII_FILE_TYPE, FTPClient.ASCII_FILE_TYPE);
 			return true;
 		} catch (Exception e) {
