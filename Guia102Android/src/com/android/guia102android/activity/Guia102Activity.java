@@ -1,13 +1,17 @@
 package com.android.guia102android.activity;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Environment;
 import br.livroandroid.transacao.Transacao;
 import br.livroandroid.transacao.TransacaoTask;
 import br.livroandroid.utils.AndroidUtils;
 
 public class Guia102Activity extends Activity{
     private TransacaoTask transacao;
+    public static String GUIA102_FILE_DIR = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath(),"Guia102Android").getPath();
     
     public void alert(String mensagem){
 	AndroidUtils.alertDialog(this, mensagem);

@@ -33,9 +33,9 @@
 		<version>2.3.5.Final</version>
 	</dependency>
 	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-core</artifactId>
-		<version>4.2.0.CR2</version>
+		<groupId>com.danilo</groupId>
+		<artifactId>findmeindaclub-bd-core</artifactId>
+		<version>1.0.0</version>
 	</dependency>
   </dependencies>
 </project>

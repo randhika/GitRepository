@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 2 elements from project &apos;findmeindaclub-ws&apos;&#x0D;&#x0A;- Original project: &apos;findmeindaclub-ws&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     findmeindaclub-ws/src/main/java/com.findme.model&#x0D;&#x0A;     findmeindaclub-ws/src/main/java/com.findme.persistence" description="Delete elements" element1="/src\/main\/java&lt;com.findme.persistence" element2="/src\/main\/java&lt;com.findme.model" elements="2" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1366720970862" subPackages="false" version="1.0"/>
+</session>

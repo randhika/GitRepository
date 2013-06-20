@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;com.findme.model&apos; to &apos;LoginActivity/src&apos;&#x0D;&#x0A;- Original project: &apos;findmeindaclub-ws&apos;&#x0D;&#x0A;- Destination element: &apos;LoginActivity/src&apos;&#x0D;&#x0A;- Original element: &apos;findmeindaclub-ws/src/main/java/com.findme.model&apos;" description="Copy package" destination="=LoginActivity/src" element1="/src\/main\/java&lt;com.findme.model" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1363181410266" version="1.0"/>
+</session>
