@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white9"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:background="@drawable/bkg_light_blue_rounded"
+        >
+
+        <Button
+            android:id="@+id/btx360"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableTop="@drawable/btn_x360"
+           	style="@style/sombreamento_black"
+            android:text="@string/x360"
+            android:padding="@dimen/bt_padding"
+            android:textColor="@color/light_blue"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btPs3"
+            android:layout_marginTop="@dimen/bt_margin_top"
+            style="@style/sombreamento_black"
+            android:padding="@dimen/bt_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableTop="@drawable/ps3_icon"
+            android:text="@string/ps3"
+            android:textColor="@color/light_blue"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btWii"
+            android:layout_marginTop="@dimen/bt_margin_top"
+            android:padding="@dimen/bt_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableTop="@drawable/wii_icon"
+           	style="@style/sombreamento_black"
+            android:text="@string/wii"
+            android:textColor="@color/light_blue"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btPc"
+            android:layout_marginTop="@dimen/bt_margin_top"
+            android:padding="@dimen/bt_padding"
+            style="@style/sombreamento_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawableTop="@drawable/pc_icon"
+            android:text="@string/Pc"
+            android:textColor="@color/light_blue"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/telaLista"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+
+    </LinearLayout>
+
+</LinearLayout>

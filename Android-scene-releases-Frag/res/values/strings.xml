@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="search">Search</string>
+    <string name="app_name">Xcene Releases</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">Xcene Releases</string>
+    <string name="x360">Xbox360</string>
+    <string name="ps3">Ps3</string>
+    <string name="wii">Wii</string>
+    <string name="Pc">Pc</string>
+    <string name="x_sky">Xbox-Sky</string>
+    <string name="abgx">ABGX</string>
+    <string name="xspeeds">Xspeeds</string>
+    <string name="bj">Bj-Share</string>
+    <string name="buscando">Please wait...</string>
+    <string name="title_activity_notification">New Releases</string>
+    <string name="title_activity_aplication">AplicationActivity</string>
+    <string name="selecione_periodo">Período de Sincronização :</string>
+    <string name="notificacoes">Notificações </string>
+</resources>
