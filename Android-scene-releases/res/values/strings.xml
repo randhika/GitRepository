@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Xcene Releases</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">Xcene Releases</string>
+    <string name="x_sky">Xbox-Sky</string>
+    <string name="abgx">ABGX</string>
+    <string name="xspeeds">Xspeeds</string>
+    <string name="bj">Bj-Share</string>
+    <string name="buscando">Please wait...</string>
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="title_activity_aplication">AplicationActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>

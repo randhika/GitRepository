@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--     tons de azul -->
+    <color name="DodgerBlue">#1E90FF</color>
+    <color name="DeepSkyBlue">#00BFFF</color>
+    <color name="SkyBlue">#87CEEB</color>
+    <color name="LightSkyBlue">#87CEFA</color>
+    <color name="LightSteelBlue">#B0C4DE</color>
+    <color name="LightBlue">#ADD8E6</color>
+<!--     tons de verde -->
+    <color name="DarkGreen">#006400</color>
+    <color name="DarkOliveGreen">#556B2F</color>
+    <color name="MediumSeaGreen">#3CB371</color>
+    <color name="LawnGreen">#7CFC00</color>
+    <color name="Green">#00FF00</color>
+    <color name="OliveDrab">#6B8E23</color>
+<!--     tons de cinza -->
+    <color name="Snow2">#EEE9E9</color>
+    <color name="DarkSlateGray">#2F4F4F</color>
+    <color name="SlateGrey">#708090</color>
+    <color name="LightSlateGray">#778899</color>
+    <color name="Grey">#BEBEBE</color>
+    <color name="LightGray">#D3D3D3</color>
+</resources>
