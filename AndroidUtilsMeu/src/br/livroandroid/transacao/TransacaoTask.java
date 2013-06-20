@@ -20,6 +20,11 @@ public class TransacaoTask extends AsyncTask<Void, Void, Boolean> {
 		this.transacao = transacao;
 		this.aguardeMsg = msg;
 	}
+	public TransacaoTask(Context context, Transacao transacao, ProgressDialog progresso) {
+		this.context = context;
+		this.transacao = transacao;
+		this.progresso = progresso;
+	}
 
 	@Override
 	protected void onPreExecute() {
@@ -62,7 +67,7 @@ public class TransacaoTask extends AsyncTask<Void, Void, Boolean> {
 	public void abrirProgress() {
 		try {
 			Log.d(Contants.LOG_TAG, "onPreExecute");
-			progresso = ProgressDialog.show(context, "",
+			progresso = ProgressDialog.show(context, context.getString(aguardeMsg),
 					context.getString(aguardeMsg));
 		} catch (Exception e) {
 			this.exception = e;

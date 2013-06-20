@@ -47,8 +47,13 @@ public class MediaFileUtils {
 			diretorio = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),appname);
 			if(!diretorio.exists()){
 				Log.i("MEDIA FILE UTILS", "Deveria criar diretorio" + diretorio.getPath());
-				if(diretorio.mkdirs()){
-					Log.i("MEDIA FILE UTILS", "Criou diretorio" + diretorio.getPath());
+				try{
+					if(diretorio.mkdirs()){
+						Log.i("MEDIA FILE UTILS", "Criou diretorio" + diretorio.getPath());
+					}
+					
+				}catch(Exception e){
+					e.printStackTrace();
 				}
 			}
 		return diretorio;

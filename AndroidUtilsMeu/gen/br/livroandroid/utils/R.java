@@ -10,6 +10,32 @@ package br.livroandroid.utils;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        /**      tons de verde 
+         */
+        public static int DarkGreen=0x7f040006;
+        public static int DarkOliveGreen=0x7f040007;
+        public static int DarkSlateGray=0x7f04000d;
+        public static int DeepSkyBlue=0x7f040001;
+        /**      tons de azul 
+         */
+        public static int DodgerBlue=0x7f040000;
+        public static int Green=0x7f04000a;
+        public static int Grey=0x7f040010;
+        public static int LawnGreen=0x7f040009;
+        public static int LightBlue=0x7f040005;
+        public static int LightGray=0x7f040011;
+        public static int LightSkyBlue=0x7f040003;
+        public static int LightSlateGray=0x7f04000f;
+        public static int LightSteelBlue=0x7f040004;
+        public static int MediumSeaGreen=0x7f040008;
+        public static int OliveDrab=0x7f04000b;
+        public static int SkyBlue=0x7f040002;
+        public static int SlateGrey=0x7f04000e;
+        /**      tons de cinza 
+         */
+        public static int Snow2=0x7f04000c;
+    }
     public static final class drawable {
         public static int ic_launcher=0x7f020000;
     }
@@ -17,7 +43,7 @@ public final class R {
         public static int main=0x7f030000;
     }
     public static final class string {
-        public static int app_name=0x7f040001;
-        public static int hello=0x7f040000;
+        public static int app_name=0x7f050001;
+        public static int hello=0x7f050000;
     }
 }
